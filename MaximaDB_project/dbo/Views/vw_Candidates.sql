@@ -1,11 +1,10 @@
--- https://docs.google.com/document/d/1rNRNY2ssv43iOM3r3b_itlLWwcgpG_6kroCpL4DnOsk/edit
--- Если Вы думаете множествами и запрос вернул ваше имя, то смело откликайтесь.
--- Убедительная просьба указывать только реальные знания
-with Candidate as (
-    select d.Name as DeveloperName, d.[Level],
+﻿CREATE VIEW [dbo].[vw_Candidates]
+WITH SCHEMABINDING
+AS
+(select d.Name as DeveloperName, d.[Level],
             (
                 case 
-                    when exists (select * from dbo.DeveloperLanguage as dl where dl.Developer = d.Id and dl.[Language] in ('C#', 'Java', 'Delphi')) then 1 
+                    when exists (select dl.Developer, dl.[Language] from dbo.DeveloperLanguage as dl where dl.Developer = d.Id and dl.[Language] in ('C#', 'Java', 'Delphi')) then 1 
                     else 0 
                 end +
                 iif(ddbt.Id is null, 0, 1) +
@@ -29,13 +28,4 @@ with Candidate as (
                     where dlt.DeveloperLanguage = dl.Id and dlt.IsWriter = 1 and dlt.Tag in ('index', 'procedure', 'function', 'trigger', 'view')
             ) > 3 and
             d.ExperienceInYears >= 2
-)
-select top(1) DeveloperName as You
-    from Candidate
-    order by [Level] + Advantage desc
-/*
-    В качестве тестового задания: пришлите скрипт создания базы данных, представленных в запросе таблиц, заполнения таблиц данными.
-    Не стесняйтесь использовать индексы и extended properties. 
-    Еще два варианта запроса: один - через представление, другой - с использованием row_number.
-    Ожидается, что все запросы вернут ваше имя :-).
-*/
+);
