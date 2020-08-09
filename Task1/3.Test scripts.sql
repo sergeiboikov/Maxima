@@ -1,3 +1,6 @@
+USE MaximaDB;
+GO
+
 --Запрос 1
 with Candidate as (
     select d.Name as DeveloperName, d.[Level],

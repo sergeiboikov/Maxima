@@ -1,9 +1,14 @@
+USE MaximaDB;
+GO
+
+/*-----Drop constraints-----*/
 ALTER TABLE [dbo].[DeveloperDBMS]			DROP CONSTRAINT [FK_DeveloperDBMS_DBMS];
 ALTER TABLE [dbo].[DeveloperDBMS]			DROP CONSTRAINT [FK_DeveloperDBMS_Developer];
 ALTER TABLE [dbo].[DeveloperDBMSTag]		DROP CONSTRAINT [FK_DeveloperDBMSTag_DeveloperDBMS];
 ALTER TABLE [dbo].[DeveloperLanguage]		DROP CONSTRAINT [FK_DeveloperLanguage_Developer];
 ALTER TABLE [dbo].[DeveloperLanguageTag]	DROP CONSTRAINT [FK_DeveloperLanguageTag_DeveloperLanguage];
 
+/*-----Truncate tables-----*/
 TRUNCATE TABLE [dbo].[City];
 TRUNCATE TABLE [dbo].[Company];
 TRUNCATE TABLE [dbo].[DBMS];
@@ -13,6 +18,7 @@ TRUNCATE TABLE [dbo].[DeveloperDBMSTag];
 TRUNCATE TABLE [dbo].[DeveloperLanguage];
 TRUNCATE TABLE [dbo].[DeveloperLanguageTag];
 
+/*-----Add constraints-----*/
 ALTER TABLE [dbo].[DeveloperDBMS] 
                          WITH CHECK ADD CONSTRAINT [FK_DeveloperDBMS_DBMS] FOREIGN KEY ([DBMS])
                          REFERENCES [dbo].[DBMS] ([Id]);
@@ -29,11 +35,11 @@ ALTER TABLE [dbo].[DeveloperLanguageTag]
                          WITH CHECK ADD CONSTRAINT [FK_DeveloperLanguageTag_DeveloperLanguage] FOREIGN KEY ([DeveloperLanguage])
                          REFERENCES [dbo].[DeveloperLanguage] ([Id]);
 
---Seeding
+/*-----Seeding tables-----*/
 INSERT INTO [dbo].[City] ([Name])
      VALUES
             ('Saratov')
-		   ,('Kazan')
+		   ,('Kazan');
 GO
 
 INSERT INTO [dbo].[Company] ([Name])
@@ -41,7 +47,7 @@ INSERT INTO [dbo].[Company] ([Name])
             ('Maxima')
 		   ,('EPAM')
 		   ,('Luxoft')
-		   ,('Yandex')
+		   ,('Yandex');
 GO
 
 INSERT INTO [dbo].[DBMS] ([Name])
@@ -49,7 +55,7 @@ INSERT INTO [dbo].[DBMS] ([Name])
             ('MS SQL Server')
 		   ,('Oracle')
 		   ,('MySQL')
-		   ,('MongoDB')
+		   ,('MongoDB');
 GO
 
 INSERT INTO [dbo].[Developer] ([Name], [Level], [Company], [ActualCity], [ExperienceInYears])
@@ -57,7 +63,7 @@ INSERT INTO [dbo].[Developer] ([Name], [Level], [Company], [ActualCity], [Experi
             ('Sergei Boikov',  3, 2, 2, 10)
 		   ,('Sergei Ivanov',  3, 1, 2, 2)
 		   ,('Sergei Petrov',  3, 1, 1, 1)
-		   ,('Sergei Maximov', 3, 1, 1, 10)
+		   ,('Sergei Maximov', 3, 1, 1, 10);
 GO
 
 INSERT INTO [dbo].[DeveloperDBMS] ([Developer], [DBMS], [Version])
@@ -70,7 +76,7 @@ INSERT INTO [dbo].[DeveloperDBMS] ([Developer], [DBMS], [Version])
 		   ,(1, 2, 19)
 		   ,(2, 2, 19)
 		   ,(3, 3, 8)
-		   ,(4, 4, 4)
+		   ,(4, 4, 4);
 GO
 
 INSERT INTO [dbo].[DeveloperDBMSTag] ([DeveloperDBMS], [Tag])
@@ -81,16 +87,17 @@ INSERT INTO [dbo].[DeveloperDBMSTag] ([DeveloperDBMS], [Tag])
 		   ,(4, 'optimization')
 		   ,(6, 'admin')
 		   ,(7, 'optimization')
-		   ,(8, 'lock')
+		   ,(8, 'lock');
 GO
 
 INSERT INTO [dbo].[DeveloperLanguage] ([Developer], [Language])
      VALUES
             (1, 'T-SQL')
 		   ,(1, 'Java')
+		   ,(1, 'Python')
 		   ,(2, 'T-SQL')
 		   ,(3, 'T-SQL')
-		   ,(4, 'T-SQL')
+		   ,(4, 'T-SQL');
 GO
 
 INSERT INTO [dbo].[DeveloperLanguageTag] ([DeveloperLanguage], [IsWriter], [Tag])
@@ -104,5 +111,5 @@ INSERT INTO [dbo].[DeveloperLanguageTag] ([DeveloperLanguage], [IsWriter], [Tag]
 		   ,(1, 0,    'AlwaysOn')
 		   ,(2, 0,    'trigger')
 		   ,(3, NULL, 'procedure')
-		   ,(4, NULL, 'index')
+		   ,(4, NULL, 'index');
 GO
