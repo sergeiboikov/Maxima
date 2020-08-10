@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Developer] (
     [Id]                INT            IDENTITY (1, 1) NOT NULL,
     [Name]              NVARCHAR (255) NOT NULL,
-    [Level]             TINYINT        NULL,
+    [Level]             TINYINT        NOT NULL,
     [Company]           INT            NULL,
     [ActualCity]        INT            NOT NULL,
     [ExperienceInYears] TINYINT        NOT NULL,

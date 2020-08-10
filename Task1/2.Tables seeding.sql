@@ -61,7 +61,7 @@ GO
 INSERT INTO [dbo].[Developer] ([Name], [Level], [Company], [ActualCity], [ExperienceInYears])
      VALUES
             ('Sergei Boikov',  3, 2, 2, 10)
-		   ,('Sergei Ivanov',  3, 1, 2, 2)
+		   ,('Sergei Ivanov',  3, 2, 2, 2)
 		   ,('Sergei Petrov',  3, 1, 1, 1)
 		   ,('Sergei Maximov', 3, 1, 1, 10);
 GO
@@ -74,6 +74,7 @@ INSERT INTO [dbo].[DeveloperDBMS] ([Developer], [DBMS], [Version])
 		   ,(1, 1, 2016)
 		   ,(1, 1, 2019)
 		   ,(1, 2, 19)
+		   ,(2, 1, 2016)
 		   ,(2, 2, 19)
 		   ,(3, 3, 8)
 		   ,(4, 4, 4);
@@ -87,6 +88,9 @@ INSERT INTO [dbo].[DeveloperDBMSTag] ([DeveloperDBMS], [Tag])
 		   ,(4, 'optimization')
 		   ,(6, 'admin')
 		   ,(7, 'optimization')
+		   ,(7, 'transaction')
+		   ,(7, 'lock')
+		   ,(7, 'OLTP')
 		   ,(8, 'lock');
 GO
 
@@ -107,9 +111,10 @@ INSERT INTO [dbo].[DeveloperLanguageTag] ([DeveloperLanguage], [IsWriter], [Tag]
 		   ,(1, 1,    'function')
 		   ,(1, 1,    'trigger')
 		   ,(1, 1,    'view')
-		   ,(1, 1,    'MOT')
 		   ,(1, 0,    'AlwaysOn')
-		   ,(2, 0,    'trigger')
-		   ,(3, NULL, 'procedure')
-		   ,(4, NULL, 'index');
+		   ,(4, 1,    'trigger')
+		   ,(4, 1,    'index')
+		   ,(4, 1,    'procedure')
+		   ,(4, 1,    'function')
+		   ,(3, NULL, 'procedure');
 GO
